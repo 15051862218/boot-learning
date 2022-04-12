@@ -1,2 +1,2 @@
 # Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.myappspringbootautoconfigure.HelloServiceAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=boot.example.myappspringbootautoconfigure.HelloServiceAutoConfiguration

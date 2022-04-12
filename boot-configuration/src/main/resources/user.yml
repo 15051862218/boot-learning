@@ -1,0 +1,7 @@
+user:
+  name: "shaned"
+  age: 29
+  book:
+    price: 90
+    name: java
+    create-time: 2022-03-04

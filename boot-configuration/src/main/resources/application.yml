@@ -1,0 +1,23 @@
+family:
+  family-name: ENC(tweCGd6dvtUEZRji2OSDLRXdv5lYLmk9)
+  father:
+    name: tom
+    age: 89
+  mother:
+    alias:
+      - rose
+      - alice
+  child:
+    name: jack
+    age: 6
+    friends:
+      - hobby: football
+        gender: male
+      - hobby: sing
+        gender: female
+#spring:
+#  profiles:
+#    active: prod
+jasypt:
+  encryptor:
+    password: Y6M9fAJQdU7jNp5MW
