@@ -1,9 +1,8 @@
 package com.syk.test;
 
 
-import com.syk.boot.BootConfigApplication;
-import com.syk.boot.model.Book;
-import com.syk.boot.model.User;
+import com.syk.boot.jwt.BootConfigApplication;
+import com.syk.boot.jwt.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

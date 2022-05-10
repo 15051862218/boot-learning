@@ -3,7 +3,7 @@ package com.syk.exceptions.handler;
 
 import com.syk.exceptions.enums.CustomExceptionType;
 import com.syk.exceptions.exception.CustomException;
-import com.syk.exceptions.service.ExceptionService;
+
 import com.syk.exceptions.utils.AjaxResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -41,7 +41,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public AjaxResponse handleBindexception(MethodArgumentNotValidException ex) {
+    public AjaxResponse handleBindException(MethodArgumentNotValidException ex) {
         FieldError fieldError = ex.getBindingResult().getFieldError();
         assert fieldError!=null;
         return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR,fieldError.getDefaultMessage()));
@@ -49,7 +49,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(BindException.class)
     @ResponseBody
-    public AjaxResponse handleBindexception(BindException ex) {
+    public AjaxResponse handleBindException(BindException ex) {
         FieldError fieldError = ex.getBindingResult().getFieldError();
         assert fieldError!=null;
         return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR,fieldError.getDefaultMessage()));
@@ -57,7 +57,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
-    public AjaxResponse handleIllegalArgumentExceeption(IllegalArgumentException e) {
+    public AjaxResponse handleIllegalArgumentException(IllegalArgumentException e) {
 
         return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR,e.getMessage()));
     }

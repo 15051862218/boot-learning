@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!--引入 element-ui 的样式，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 必须先引入vue，  后使用element-ui -->
+
+    <!-- 引入element 的组件库-->
+
+</head>
+<style>
+    body{
+        background: url("001.jpg") no-repeat;
+        background-size: 100%;
+    }
+</style>
+<body>
+ <div id="app">
+
+   <div>
+       <label>
+           输入昵称
+           <input type="text" v-model="nickname" id="nickname" placeholder="输入">
+       </label>
+       <el-button type="primary" plain @click="open" >连接</el-button>
+
+
+<!--     <label>-->
+<!--         输入内容-->
+<!--         <input type="text" v-model="content" id="content" placeholder="输入">-->
+<!--     </label>-->
+<!--     <button @click="sendMsg">发消息</button>-->
+   </div>
+     <hr>
+
+ </div>
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+ <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+ <script>
+     const vm = new Vue({
+         el: "#app",
+         data() {
+             return {
+                 content: "",
+                 ws: null,
+                 message: "显示消息",
+                 nickname:""
+
+             }
+         },
+         methods:{
+             open(){
+                 if (this.nickname === ""){
+                     alert("昵称不能为空");
+                     return;
+                 }
+                 // ws = new WebSocket(`ws://localhost:8888/websocket?nickname=${this.nickname}`);
+                 ws = new WebSocket(`ws://localhost:8888/socket/1`);
+                 ws.onopen = () => {
+                     console.log("websocket已经连接");
+                 }
+                 ws.onclose = () => {
+                     console.log("websocket已经关闭");
+                 }
+                 ws.onerror = () => {
+                     console.log("websocket已经报错");
+                 }
+                 ws.onmessage = (msg) => {
+                     console.log(msg);
+                     this.open2();
+                     this.open3(msg.data);
+                     this.message= this.message.concat(msg.data);
+                 }
+             },
+             sendMsg(){
+                ws.send(this.content);
+                console.log("发送成功")
+                this.content = ""
+             },
+             open2() {
+                 this.$alert('12：00该吃饭啦', '标题名称', {
+                     confirmButtonText: '确定',
+                     callback: action => {
+                         this.$message({
+                             type: 'info',
+                             message: `action: ${ action }`
+                         });
+                     }
+                 });
+             },
+             open3(msg) {
+                 this.$notify({
+                     title: '流量消耗通知',
+                     message: msg,
+                     position: 'bottom-left',
+                     duration: 0
+                 });
+             },
+
+
+         }
+     })
+ </script>
+
+</body>
+</html>

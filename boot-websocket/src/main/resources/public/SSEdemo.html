@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<body>
+ <div id="app">
+     <div>
+         <label>
+             输入昵称
+             <input type="text" v-model="nickname" id="nickname" placeholder="输入">
+         </label>
+         <el-button type="primary" plain @click="open" >连接</el-button>
+
+         <hr>
+         <h2>{{content }}</h2>
+         <br>
+         <h2>{{content }}</h2>
+         <div class="heart">
+             <i class="fa fa-heart" id="heart"></i>
+         </div>
+         <!--     <label>-->
+         <!--         输入内容-->
+         <!--         <input type="text" v-model="content" id="content" placeholder="输入">-->
+         <!--     </label>-->
+         <!--     <button @click="sendMsg">发消息</button>-->
+     </div>
+ </div>
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+ <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+ <script>
+     const vm = new Vue({
+         el: "#app",
+         data() {
+             return {
+                 content: "",
+                 source: null,
+                 message: "显示消息",
+                 nickname:""
+
+             }
+         },
+         methods:{
+             open(){
+                 if (this.nickname === ""){
+                     // alert("昵称不能为空");
+                     Swal.fire({
+                         title: 'Error!',
+                         text: 'Do you want to continue',
+                         type: 'error',
+                         confirmButtonText: 'Cool'
+                     })
+                     return;
+                 }
+
+                 if (!!window.EventSource){
+                     source =new EventSource(`http://localhost:8888/server/info`);
+                     source.addEventListener('open',() => {
+                         console.log("连接打开");
+
+                     },false);
+                     source.addEventListener('message',(e) => {
+                         this.content += e.data
+
+                     });
+                     source.addEventListener('error',(e) => {
+                         if (e.readyState === EventSource.CLOSED) {
+                             console.log("连接关闭");
+
+                         }else {
+                             console.log(e.readyState);
+
+                         }
+
+                     },false);
+                     source.addEventListener('open',() => {
+                         console.log("连接打开");
+
+                     },false);
+                 }else {
+                     alert(4);
+                     console.log("没有sse");
+                 }
+
+
+             },
+             sendMsg(){
+                 ws.send(this.content);
+                 console.log("发送成功")
+                 this.content = ""
+             },
+
+
+
+         }
+     })
+     // if (!!window.EventSource) {
+     //     let source = new EventSource(`http://localhost:8888/server/info`);
+     //     let s='';
+     //     source.addEventListener('open',() => {
+     //         console.log("连接打开");
+     //
+     //     },false);
+     //     source.addEventListener('message',(e) => {
+     //         s += e.data+"<br/>"
+     //         document.getElementById("msg").innerHTML = s;
+     //
+     //     });
+     //     source.addEventListener('error',(e) => {
+     //         if (e.readyState === EventSource.CLOSED) {
+     //             console.log("连接关闭");
+     //
+     //         }else {
+     //             console.log(e.readyState);
+     //
+     //         }
+     //
+     //     },false);
+     //     source.addEventListener('open',() => {
+     //         console.log("连接打开");
+     //
+     //     },false);
+     // }else {
+     //     alert(4);
+     //     console.log("没有sse");
+     // }
+ </script>
+
+</body>
+<style>
+    .heart{
+        text-align: center; /*让div内部文字居中*/
+        background-color: #fff;
+        border-radius: 20px;
+        width: 300px;
+        height: 350px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+    }
+    #heart{
+        color: #9262cc;
+        font-size: 100px;
+        animation: heart-pluse 1s infinite ease-out;
+    }
+    @keyframes  heart-pluse {
+        0% {
+            transform: scale(0);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        70% {
+            transform: scale(0.65);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+</style>
+</html>

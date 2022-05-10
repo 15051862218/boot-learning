@@ -1,0 +1,16 @@
+spring:
+ mail:
+  host: smtp.qq.com
+  username: 2531227817@qq.com
+  password: dwtwutsscahfebaf
+  protocol: smtp
+  properties.mail.smtp.auth: true
+  properties.mail.smtp.port: 465 #465或者994
+  properties.mail.display.sendmail: Javen
+  properties.mail.display.sendname: Spring Boot Guide Email
+  properties.mail.smtp.starttls.enable: true
+  properties.mail.smtp.starttls.required: true
+  properties.mail.smtp.ssl.enable: true
+  default-encoding: utf-8
+
+

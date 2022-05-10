@@ -9,6 +9,11 @@
         <module>boot-orm</module>
         <module>boot-orm2</module>
         <module>boot-orm-book</module>
+        <module>boot-admin-client</module>
+        <module>boot-cache</module>
+        <module>boot-websocket</module>
+        <module>boot-jwt</module>
+        <module>boot-jjwt</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
